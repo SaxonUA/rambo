@@ -42,17 +42,17 @@
 
     /* Базовий віджет (фіксовані ширина/висота) */
     .widget{
-      width: 580px;           /* фіксована ширина */
+      width: 500px;           /* фіксована ширина */
       height: 280px;          /* фіксована висота */
       margin: 20px auto;
-      border: 2px solid var(--brand);
+      border: 0px solid var(--brand);
       border-radius: 12px;
       background: var(--panel-bg);
       box-shadow: 0 8px 20px rgba(0,0,0,.35), 0 0 10px rgba(255,140,0,.25) inset;
       backdrop-filter: blur(10px) saturate(120%);
       -webkit-backdrop-filter: blur(10px) saturate(120%);
 
-      /* Сітка: верх — середина (строго по центру) — низ */
+      /* Сітка: верх — середина — низ */
       display: grid;
       grid-template-rows: auto 1fr auto;
       grid-template-areas:
@@ -61,7 +61,7 @@
         "bottom";
       align-items: center;
       justify-items: center;
-      overflow: hidden; /* захист від зсувів */
+      overflow: hidden;
       padding: 12px 16px;
     }
     .widget-top   { grid-area: top; }
@@ -80,7 +80,7 @@
     }
     .rembo-title{
       font-family: 'Orbitron', sans-serif;
-      font-size: 22px;
+      font-size: 28px;
       color: var(--brand);
       margin: 0 0 6px;
       text-transform: uppercase;
@@ -139,7 +139,8 @@
     <!-- Віджет таймера -->
     <section class="widget" aria-labelledby="w2-title">
       <div class="widget-top">
-        <div class="rembo-title" id="w2-title">До кінця челенджу залишилось:</div>
+        <div class="rembo-title" id="w2-title">До кінця челенджу</div>
+        <div class="rembo-title">залишилось:</div>
       </div>
       <div class="widget-center">
         <div class="flip-clock-wrapper"><div id="flip-clock"></div></div>
@@ -182,17 +183,19 @@
         container.classList.toggle('decrease', step < 0);
         inProgress = true;
         interval = setInterval(() => {
-          currentDamage += step; damageClock.setTime(currentDamage);
+          currentDamage += step; 
+          damageClock.setTime(currentDamage);
           if (currentDamage === newValue) {
-            clearInterval(interval); inProgress = false;
+            clearInterval(interval); 
+            inProgress = false;
             setTimeout(() => container.classList.remove('increase', 'decrease'), 800);
           }
-        }, 5);
+        }, 2); // було 5, тепер 2 для вдвічі швидшої анімації
       }
       async function updateDamage() {
         try {
           let raw = await fetchSingleCell('C14');
-          raw = String(raw).replace(/\s/g,'');
+          raw = String(raw).replace(/\\s/g,'');
           const value = parseInt(raw || 0, 10);
           animateDamage(value);
         } catch (e) { console.error('Помилка оновлення дамага:', e); }
