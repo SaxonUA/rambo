@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.css" />
-  <link rel="preload" as="image" href="РЕМБО САКСОН (1).png" />
 
   <style>
     :root{
@@ -25,16 +24,10 @@
       margin: 0;
       font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial;
       color: var(--txt);
-      background: #000 url('РЕМБО САКСОН (1).png') no-repeat center/cover fixed;
+      background: #000; /* ← прибрано загальний фон-картинку */
       display: grid;
       place-items: center;
       padding: 12px;
-    }
-    body::before{
-      content: "";
-      position: fixed; inset: 0;
-      background: radial-gradient(1200px 600px at 50% 40%, rgba(0,0,0,.15), rgba(0,0,0,.55));
-      pointer-events: none;
     }
 
     /* Контейнер сторінки */
@@ -45,9 +38,9 @@
       width: 500px;           /* фіксована ширина */
       height: 280px;          /* фіксована висота */
       margin: 20px auto;
-      border: 0px solid var(--brand);
+      border: 2px solid var(--brand);
       border-radius: 12px;
-      background: var(--panel-bg);
+      background: var(--panel-bg); /* фон лише всередині віджета */
       box-shadow: 0 8px 20px rgba(0,0,0,.35), 0 0 10px rgba(255,140,0,.25) inset;
       backdrop-filter: blur(10px) saturate(120%);
       -webkit-backdrop-filter: blur(10px) saturate(120%);
@@ -80,7 +73,7 @@
     }
     .rembo-title{
       font-family: 'Orbitron', sans-serif;
-      font-size: 28px;
+      font-size: 22px;
       color: var(--brand);
       margin: 0 0 6px;
       text-transform: uppercase;
@@ -190,7 +183,7 @@
             inProgress = false;
             setTimeout(() => container.classList.remove('increase', 'decrease'), 800);
           }
-        }, 2); // було 5, тепер 2 для вдвічі швидшої анімації
+        }, 2); // пришвидшена анімація
       }
       async function updateDamage() {
         try {
